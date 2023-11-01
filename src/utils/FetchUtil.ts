@@ -55,26 +55,29 @@ export interface FetchListOptions
  */
 export class FetchUtil
 {
-	static isValidMethod( method : any ) : boolean
+	public static isValidMethod( method : any ) : boolean
 	{
 		return TypeUtil.isNotEmptyString( method ) &&
 			FetchMethods.includes( method.trim().toUpperCase() );
 	}
-	static isValidTimeout( timeout : any ) : boolean
+
+	public static isValidTimeout( timeout : any ) : boolean
 	{
 		return TypeUtil.isNumeric( timeout ) && timeout > 0;
 	}
-	static isValidOptions( options : any )
+
+	public static isValidOptions( options : any )
 	{
 		return TypeUtil.isNotNullObjectWithKeys( options, [ 'url' ] ) &&
 			TypeUtil.isValidUrl( options.url );
 	}
 
-	static get defaultPage()
+	public static get defaultPage()
 	{
 		return 1;
 	}
-	static getSafePage( page : any, defaultPage ?: number )
+
+	public static getSafePage( page : any, defaultPage ?: number )
 	{
 		if ( TypeUtil.isNumeric( page ) )
 		{
@@ -84,11 +87,12 @@ export class FetchUtil
 		return this.defaultPage;
 	}
 
-	static get defaultPageSize()
+	public static get defaultPageSize()
 	{
 		return 10;
 	}
-	static getSafePageSize( pageSize : any, defaultPageSize ?: number )
+
+	public static getSafePageSize( pageSize : any, defaultPageSize ?: number )
 	{
 		if ( TypeUtil.isNumeric( pageSize ) )
 		{
@@ -98,11 +102,12 @@ export class FetchUtil
 		return this.defaultPageSize;
 	}
 
-	static get defaultSort()
+	public static get defaultSort()
 	{
 		return 'desc';
 	}
-	static getSafeSort( sort : any )
+
+	public static getSafeSort( sort : any )
 	{
 		if ( TypeUtil.isNotEmptyString( sort ) )
 		{
@@ -116,17 +121,17 @@ export class FetchUtil
 	}
 
 
-	static async getRequest( options : FetchOptions ) : Promise<FetchResponse>
+	public static async getRequest( options : FetchOptions ) : Promise<FetchResponse>
 	{
 		return FetchUtil.sendRequest( "GET", options );
 	}
 
-	static async postRequest( options : FetchOptions ) : Promise<FetchResponse>
+	public static async postRequest( options : FetchOptions ) : Promise<FetchResponse>
 	{
 		return FetchUtil.sendRequest( "POST", options );
 	}
 
-	static async sendRequest( method : string, options : FetchOptions ) : Promise<FetchResponse>
+	public static async sendRequest( method : string, options : FetchOptions ) : Promise<FetchResponse>
 	{
 		return new Promise( async ( resolve, reject ) =>
 		{
