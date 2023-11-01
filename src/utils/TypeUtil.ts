@@ -1,3 +1,6 @@
+/**
+ * 	@class
+ */
 export class TypeUtil
 {
 	/**
@@ -72,6 +75,15 @@ export class TypeUtil
 	public static isNumeric( str : any ) : boolean
 	{
 		return 'number' === typeof str || 'bigint' === typeof str;
+	}
+
+	/**
+	 *	@param variable		{any}
+	 *	@returns {boolean}
+	 */
+	public static isBoolean( variable : any )
+	{
+		return 'boolean' === typeof variable;
 	}
 
 	/**
@@ -155,7 +167,7 @@ export class TypeUtil
 
 	/**
 	 *	@param object	{any}
-	 *	@returns {*|number}
+	 *	@returns {number}
 	 */
 	public static getObjectLength( object : any ) : number
 	{
@@ -173,5 +185,21 @@ export class TypeUtil
 		}
 
 		return 0;
+	}
+
+	/**
+	 *	@param urlString	{any}
+	 *	@returns {boolean}
+	 */
+	static isValidUrl( urlString : any ) : boolean
+	{
+		try
+		{
+			return Boolean( new URL( urlString ) );
+		}
+		catch( err )
+		{
+			return false;
+		}
 	}
 }
