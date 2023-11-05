@@ -12,10 +12,11 @@ export { LogUtil, ObjectUtil, TypeUtil, BufferUtil, PageUtil, TestUtil, TimerUti
 
 /**
  * 	@exports
- * 	@description	AesCryptoUtil
+ * 	@description	AesCryptoUtil, StorageCrypto
  */
 import { AesCryptoUtil } from "./utils/crypto/AesCryptoUtil";
-export { AesCryptoUtil }
+import { StorageCrypto } from "./utils/crypto/StorageCrypto";
+export { AesCryptoUtil, StorageCrypto }
 
 
 /**

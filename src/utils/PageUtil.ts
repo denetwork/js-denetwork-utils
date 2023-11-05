@@ -62,6 +62,22 @@ export class PageUtil
 	}
 
 	/**
+	 * 	@param index	{number}
+	 * 	@param pageNo	{number}
+	 * 	@param pageSize	{number}
+	 * 	@returns {boolean}
+	 */
+	public static pageCondition( index : number, pageNo ?: number, pageSize ?: number ) : boolean
+	{
+		pageNo = this.getSafePageNo( pageNo );
+		pageSize = this.getSafePageSize( pageSize );
+		const startIndex : number = ( pageNo - 1 ) * pageSize;
+		const endIndex : number = pageNo * pageSize - 1;
+
+		return index >= startIndex && index <= endIndex;
+	}
+
+	/**
 	 *	@param arr	{Array<*>}
 	 *	@param pageNo	{number}
 	 *	@param pageSize	{number}
