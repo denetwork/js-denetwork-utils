@@ -14,9 +14,9 @@ export { LogUtil, ObjectUtil, TypeUtil, BufferUtil, PageUtil, TestUtil, TimerUti
  * 	@exports
  * 	@description	AesCryptoUtil, StorageCrypto
  */
-import { AesCryptoUtil } from "./utils/crypto/AesCryptoUtil";
-import { StorageCrypto } from "./utils/crypto/StorageCrypto";
-export { AesCryptoUtil, StorageCrypto }
+import { AesUtil } from "./utils/crypto/AesUtil";
+import { AesCrypto } from "./utils/crypto/AesCrypto";
+export { AesUtil, AesCrypto }
 
 
 /**

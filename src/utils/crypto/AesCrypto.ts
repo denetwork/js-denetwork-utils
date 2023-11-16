@@ -1,10 +1,10 @@
-import { AesCryptoUtil } from "./AesCryptoUtil";
+import { AesUtil } from "./AesUtil";
 import _ from "lodash";
 
 /**
  * 	@class
  */
-export class StorageCrypto
+export class AesCrypto
 {
 	passwordPrefix : string = `denetwork_password_`;
 
@@ -67,7 +67,7 @@ export class StorageCrypto
 	public encrypt( plaintext : string, password : string ) : string
 	{
 		const finalPassword : string = `${ this.passwordPrefix }-${ String( password ) }`;
-		return AesCryptoUtil.encryptAES( plaintext, finalPassword );
+		return AesUtil.encryptAES( plaintext, finalPassword );
 	}
 
 	/**
@@ -78,6 +78,6 @@ export class StorageCrypto
 	public decrypt( encryptedText : string, password : string ) : string
 	{
 		const finalPassword : string = `${ this.passwordPrefix }-${ String( password ) }`;
-		return AesCryptoUtil.decryptAES( encryptedText, finalPassword );
+		return AesUtil.decryptAES( encryptedText, finalPassword );
 	}
 }

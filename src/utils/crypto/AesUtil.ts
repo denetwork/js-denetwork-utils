@@ -7,7 +7,7 @@ import { Uint8Util } from "../Uint8Util";
  * 	@class
  * 	@description secret ends core model
  */
-export class AesCryptoUtil
+export class AesUtil
 {
 	/**
 	 *	@param text		{string}
