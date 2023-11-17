@@ -64,16 +64,33 @@ describe( "AesUtil", () =>
 
 
 			const message = `我是Bob，你是Alice吗？`;
-			const encrypted : string = AesBase64.encryptAES( message, aliceSharedSecret );
-			const decrypted : string = AesBase64.decryptAES( encrypted, aliceSharedSecret );
-			console.log( `encrypted :`, encrypted );
-			console.log( `decrypted :`, decrypted );
-			expect( typeof encrypted ).toBe( 'string' );
-			expect( typeof decrypted ).toBe( 'string' );
-			expect( encrypted.length ).toBeGreaterThan( 0 );
-			expect( encrypted.length ).toBeGreaterThan( 0 );
-			expect( encrypted.length ).toBeGreaterThan( decrypted.length );
-			expect( decrypted ).toBe( message );
+
+			//	AesBase64
+			const AesBase64Encrypted : string = AesBase64.encryptAES( message, aliceSharedSecret );
+			const AesBase64Decrypted : string = AesBase64.decryptAES( AesBase64Encrypted, aliceSharedSecret );
+			console.log( `encrypted :`, AesBase64Encrypted );
+			console.log( `decrypted :`, AesBase64Decrypted );
+			expect( typeof AesBase64Encrypted ).toBe( 'string' );
+			expect( typeof AesBase64Decrypted ).toBe( 'string' );
+			expect( AesBase64Encrypted.length ).toBeGreaterThan( 0 );
+			expect( AesBase64Encrypted.length ).toBeGreaterThan( 0 );
+			expect( AesBase64Encrypted.length ).toBeGreaterThan( AesBase64Decrypted.length );
+			expect( AesBase64Decrypted ).toBe( message );
+
+			//	AesHex
+			const AesHexEncrypted : string = AesHex.encryptAES( message, aliceSharedSecret );
+			const AesHexDecrypted : string = AesHex.decryptAES( AesHexEncrypted, aliceSharedSecret );
+			console.log( `encrypted :`, AesHexEncrypted );
+			console.log( `decrypted :`, AesHexDecrypted );
+			expect( typeof AesHexEncrypted ).toBe( 'string' );
+			expect( typeof AesHexDecrypted ).toBe( 'string' );
+			expect( AesHexEncrypted.length ).toBeGreaterThan( 0 );
+			expect( AesHexEncrypted.length ).toBeGreaterThan( 0 );
+			expect( AesHexEncrypted.length ).toBeGreaterThan( AesHexDecrypted.length );
+			expect( AesHexDecrypted ).toBe( message );
+
+
+
 
 // 			const password = `my-password`;
 // 			//const key = forge.random.getBytesSync( 16 );

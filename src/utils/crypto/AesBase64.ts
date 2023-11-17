@@ -73,7 +73,8 @@ export class AesBase64
 		}
 
 		const sha256String : string = sha256( Uint8Util.stringToUint8Array( password ) );
-		return Uint8Util.hexToUInt8Array( sha256String );
+		const keys : Uint8Array = Uint8Util.hexToUInt8Array( sha256String );
+		return keys.slice( 0, 16 );
 	}
 
 	/**
@@ -88,7 +89,7 @@ export class AesBase64
 		}
 
 		const sha256String : string = sha256( Uint8Util.stringToUint8Array( password ) );
-		const aesKey : Uint8Array = Uint8Util.hexToUInt8Array( sha256String );
-		return Array.from( aesKey.slice( 0, 16 ) );
+		const keys : Uint8Array = Uint8Util.hexToUInt8Array( sha256String );
+		return Array.from( keys.slice( 0, 16 ) );
 	}
 }
