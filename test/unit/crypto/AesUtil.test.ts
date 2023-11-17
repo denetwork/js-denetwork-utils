@@ -1,9 +1,8 @@
 import { describe, expect } from '@jest/globals';
 import * as forge from 'node-forge';
 import { ethers, isHexString } from "ethers";
-import _ from "lodash";
 import { AesHex } from "../../../src";
-import { AesBase64 } from "../../../src/utils/crypto/AesBase64";
+import { AesBase64 } from "../../../src";
 
 /**
  *	unit test

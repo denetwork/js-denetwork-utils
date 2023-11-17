@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { AesBase64 } from "./AesBase64";
 import { AesHex } from "./AesHex";
 
 /**
