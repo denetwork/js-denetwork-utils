@@ -6,7 +6,7 @@ import { Uint8Util } from "../Uint8Util";
 /**
  * 	@class
  */
-export class AesUtil
+export class AesHex
 {
 	/**
 	 *	@param text		{string}
@@ -17,15 +17,18 @@ export class AesUtil
 	{
 		try
 		{
-			const aesKey : Uint8Array = this.getAesKeyByPassword( password );
-			const iv : Array<number> = this.getAesIvByPassword( password );
+			const aesKey = this.calcAesKey( password );
+			const aesIv = this.calcAesIv( password );
 
-			const cipher = forge.cipher.createCipher( 'AES-CTR', forge.util.createBuffer( aesKey ) );
-			cipher.start( { iv : iv } );
-			cipher.update( forge.util.createBuffer( forge.util.encodeUtf8( text ), 'utf8' ) );
+			const textBytes = forge.util.createBuffer( text, 'utf8' );
+			const cipher = forge.cipher.createCipher( 'AES-CBC', aesKey );
+			cipher.start( { iv : aesIv } );
+			cipher.update( forge.util.createBuffer( textBytes ) );
 			cipher.finish();
-			const encrypted = cipher.output;
-			return ( forge.util.encode64( encrypted.getBytes() ) );
+
+			//	encrypted hex
+			return cipher.output.toHex();
+			//return ( forge.util.encode64( cipher.output.getBytes() ) );
 		}
 		catch ( err )
 		{
@@ -35,35 +38,38 @@ export class AesUtil
 	}
 
 	/**
-	 *	@param ciphertext	{string}
+	 *	@param encryptedHex	{string}
 	 *	@param password		{string}
 	 *	@returns {string}
 	 */
-	static decryptAES( ciphertext : string, password : string ) : string
+	static decryptAES( encryptedHex : string, password : string ) : string
 	{
 		try
 		{
-			const aesKey : Uint8Array = this.getAesKeyByPassword( password );
-			const iv : Array<number> = this.getAesIvByPassword( password );
+			const aesKey = this.calcAesKey( password );
+			const aesIv = this.calcAesIv( password );
 
-			const decipher = forge.cipher.createDecipher( 'AES-CTR', forge.util.createBuffer( aesKey ) );
-			decipher.start( { iv : iv } );
-			decipher.update( forge.util.createBuffer( forge.util.decode64( ciphertext ) ) );
-			decipher.finish();
+			const byteArray = forge.util.hexToBytes( encryptedHex );
+			const byteStringBuffer = forge.util.createBuffer(byteArray);
+			const decipher = forge.cipher.createDecipher( 'AES-CBC', aesKey );
+			decipher.start( { iv : aesIv } );
+			decipher.update( byteStringBuffer );
+			const result = decipher.finish(); // check 'result' for true/false
+
 			return forge.util.decodeUtf8( decipher.output.data );
 		}
 		catch ( err )
 		{
 			console.error( `decryptAES`, err );
-			return ciphertext;
+			return encryptedHex;
 		}
 	}
 
 	/**
 	 *	@param password		{string}
-	 *	@returns {Uint8Array}
+	 *	@returns {string}
 	 */
-	static getAesKeyByPassword( password : string ) : Uint8Array
+	static calcAesKey( password : string ) : string
 	{
 		if ( ! TypeUtil.isNotEmptyString( password ) )
 		{
@@ -71,14 +77,14 @@ export class AesUtil
 		}
 
 		const sha256String : string = sha256( Uint8Util.stringToUint8Array( password ) );
-		return Uint8Util.hexToUInt8Array( sha256String );
+		return sha256String.slice( 0, 16 );
 	}
 
 	/**
 	 *	@param password		{string}
 	 *	@returns {Array<number>}
 	 */
-	static getAesIvByPassword( password : string ) : Array<number>
+	static calcAesIv( password : string ) : Array<number>
 	{
 		if ( ! TypeUtil.isNotEmptyString( password ) )
 		{
