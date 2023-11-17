@@ -15,15 +15,23 @@ export class AesUtil
 	 */
 	static encryptAES( text : string, password : string ) : string
 	{
-		const aesKey : Uint8Array = this.getAesKeyByPassword( password );
-		const iv : Array<number> = this.getAesIvByPassword( password );
+		try
+		{
+			const aesKey : Uint8Array = this.getAesKeyByPassword( password );
+			const iv : Array<number> = this.getAesIvByPassword( password );
 
-		const cipher = forge.cipher.createCipher( 'AES-CTR', forge.util.createBuffer( aesKey ) );
-		cipher.start( { iv : iv } );
-		cipher.update( forge.util.createBuffer( forge.util.encodeUtf8( text ), 'utf8' ) );
-		cipher.finish();
-		const encrypted = cipher.output;
-		return ( forge.util.encode64( encrypted.getBytes() ) );
+			const cipher = forge.cipher.createCipher( 'AES-CTR', forge.util.createBuffer( aesKey ) );
+			cipher.start( { iv : iv } );
+			cipher.update( forge.util.createBuffer( forge.util.encodeUtf8( text ), 'utf8' ) );
+			cipher.finish();
+			const encrypted = cipher.output;
+			return ( forge.util.encode64( encrypted.getBytes() ) );
+		}
+		catch ( err )
+		{
+			console.error( `encryptAES`, err );
+			return text;
+		}
 	}
 
 	/**
@@ -33,14 +41,22 @@ export class AesUtil
 	 */
 	static decryptAES( ciphertext : string, password : string ) : string
 	{
-		const aesKey : Uint8Array = this.getAesKeyByPassword( password );
-		const iv : Array<number> = this.getAesIvByPassword( password );
+		try
+		{
+			const aesKey : Uint8Array = this.getAesKeyByPassword( password );
+			const iv : Array<number> = this.getAesIvByPassword( password );
 
-		const decipher = forge.cipher.createDecipher( 'AES-CTR', forge.util.createBuffer( aesKey ) );
-		decipher.start( { iv : iv } );
-		decipher.update( forge.util.createBuffer( forge.util.decode64( ciphertext ) ) );
-		decipher.finish();
-		return forge.util.decodeUtf8( decipher.output.data );
+			const decipher = forge.cipher.createDecipher( 'AES-CTR', forge.util.createBuffer( aesKey ) );
+			decipher.start( { iv : iv } );
+			decipher.update( forge.util.createBuffer( forge.util.decode64( ciphertext ) ) );
+			decipher.finish();
+			return forge.util.decodeUtf8( decipher.output.data );
+		}
+		catch ( err )
+		{
+			console.error( `decryptAES`, err );
+			return ciphertext;
+		}
 	}
 
 	/**
