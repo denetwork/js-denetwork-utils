@@ -1,5 +1,5 @@
-import { AesHex } from "./AesHex";
 import _ from "lodash";
+import { AesBase64 } from "./AesBase64";
 
 /**
  * 	@class
@@ -67,7 +67,7 @@ export class AesCrypto
 	public encrypt( plaintext : string, password : string ) : string
 	{
 		const finalPassword : string = `${ this.passwordPrefix }-${ String( password ) }`;
-		return AesHex.encryptAES( plaintext, finalPassword );
+		return AesBase64.encryptAES( plaintext, finalPassword );
 	}
 
 	/**
@@ -78,6 +78,6 @@ export class AesCrypto
 	public decrypt( encryptedText : string, password : string ) : string
 	{
 		const finalPassword : string = `${ this.passwordPrefix }-${ String( password ) }`;
-		return AesHex.decryptAES( encryptedText, finalPassword );
+		return AesBase64.decryptAES( encryptedText, finalPassword );
 	}
 }
