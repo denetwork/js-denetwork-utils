@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 /**
  * 	@class
  */
@@ -201,5 +203,16 @@ export class TypeUtil
 		{
 			return false;
 		}
+	}
+
+	/**
+	 *	@param str1	{string}
+	 *	@param str2	{string}
+	 *	@reurns {boolean}
+	 */
+	static isStringEqualNoCase( str1 : any, str2 : any ) : boolean
+	{
+		return _.isString( str1 ) && _.isString( str2 ) &&
+			0 === str1.trim().toLowerCase().localeCompare( str2.trim().toLowerCase() );
 	}
 }
