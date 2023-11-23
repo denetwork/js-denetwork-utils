@@ -80,10 +80,19 @@ export class TypeUtil
 	}
 
 	/**
+	 *	@param str	{any}
+	 *	@returns {boolean}
+	 */
+	public static isBigint( str : any ) : boolean
+	{
+		return 'bigint' === typeof str;
+	}
+
+	/**
 	 *	@param variable		{any}
 	 *	@returns {boolean}
 	 */
-	public static isBoolean( variable : any )
+	public static isBoolean( variable : any ) : boolean
 	{
 		return 'boolean' === typeof variable;
 	}
