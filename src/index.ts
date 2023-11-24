@@ -12,16 +12,6 @@ export { LogUtil, ObjectUtil, TypeUtil, BufferUtil, PageUtil, TestUtil, TimerUti
 
 /**
  * 	@exports
- * 	@description	AesCryptoUtil, StorageCrypto
- */
-import { AesCrypto } from "./utils/crypto/AesCrypto";
-import { AesBase64 } from "./utils/crypto/AesBase64";
-import { AesHex } from "./utils/crypto/AesHex";
-export { AesCrypto, AesBase64, AesHex }
-
-
-/**
- * 	@exports
  * 	@description 	FetchUtil
  */
 import { FetchMethods,
