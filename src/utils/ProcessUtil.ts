@@ -25,7 +25,11 @@ export class ProcessUtil
 		const stringValue : string | undefined = this.getParamStringValue( name );
 		if ( _.isString( stringValue ) && ! _.isEmpty( stringValue ) )
 		{
-			return parseInt( stringValue );
+			const result = parseInt( stringValue );
+			if ( ! Number.isNaN( result ) )
+			{
+				return result;
+			}
 		}
 
 		return defaultValue;
@@ -49,7 +53,10 @@ export class ProcessUtil
 		if ( undefined !== argv &&
 		     undefined !== argv[ name ] )
 		{
-			return String( argv[ name ] ).trim();
+			if ( _.isString( argv[ name ] ) )
+			{
+				return String( argv[ name ] ).trim();
+			}
 		}
 
 		//	...
@@ -58,7 +65,10 @@ export class ProcessUtil
 		     undefined !== process.env &&
 		     undefined !== process.env[ name ] )
 		{
-			return String( process.env[ name ] ).trim();
+			if ( _.isString( process.env[ name ] ) )
+			{
+				return String( process.env[ name ] ).trim();
+			}
 		}
 
 		return defaultValue;
