@@ -25,6 +25,9 @@ describe( "ProcessUtil Test", () =>
 			'abc'
 		];
 		process.env[ `AGE` ] = `20`;
+		process.env[ `SITE` ] = `null`;
+		process.env[ `WEB` ] = `NULL`;
+		process.env[ `NET` ] = `Null`;
 	} );
 	afterEach( () =>
 	{
@@ -55,6 +58,15 @@ describe( "ProcessUtil Test", () =>
 
 			const portNumber : number | undefined = ProcessUtil.getParamIntValue( 'AGE' );
 			expect( portNumber ).toBe( 20 );
+
+			const siteString : string | undefined = ProcessUtil.getParamStringValue( 'SITE' );
+			expect( siteString ).toBe( '' );
+
+			const webString : string | undefined = ProcessUtil.getParamStringValue( 'WEB' );
+			expect( webString ).toBe( '' );
+
+			const netString : string | undefined = ProcessUtil.getParamStringValue( 'NET' );
+			expect( netString ).toBe( '' );
 		} );
 	} );
 } );

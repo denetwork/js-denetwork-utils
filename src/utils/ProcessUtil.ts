@@ -48,27 +48,43 @@ export class ProcessUtil
 		}
 
 		//	...
+		let value = undefined;
 		const argv = minimist( process.argv.slice( 2 ) );
+
+		//	...
 		name = name.toLowerCase().trim();
 		if ( undefined !== argv &&
 		     undefined !== argv[ name ] )
 		{
-			if ( _.isString( argv[ name ] ) )
-			{
-				return String( argv[ name ] ).trim();
-			}
+			value = argv[ name ];
 		}
 
 		//	...
-		name = name.toUpperCase().trim();
-		if ( undefined !== process &&
-		     undefined !== process.env &&
-		     undefined !== process.env[ name ] )
+		if ( undefined === value )
 		{
-			if ( _.isString( process.env[ name ] ) )
+			name = name.toUpperCase().trim();
+			if ( undefined !== process &&
+				undefined !== process.env &&
+				undefined !== process.env[ name ] )
 			{
-				return String( process.env[ name ] ).trim();
+				value = process.env[ name ];
 			}
+		}
+
+		if ( undefined !== value )
+		{
+			if ( null === value ||
+				Number.isNaN( value ) )
+			{
+				return ``;
+			}
+			if ( _.isString( value ) &&
+				`null` === value.trim().toLowerCase() )
+			{
+				return ``;
+			}
+
+			return String( value ).trim();
 		}
 
 		return defaultValue;
