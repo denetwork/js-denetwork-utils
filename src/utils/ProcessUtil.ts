@@ -17,12 +17,12 @@ export class ProcessUtil
 
 	/**
 	 *	@param name		{string}
-	 *	@param [defaultValue]	{number}
+	 *	@param [defaultValue]	{number | undefined}
 	 *	@returns {number | undefined}
 	 */
-	static getParamIntValue( name : string, defaultValue ?: number ) : number | undefined
+	static getParamIntValue( name : string, defaultValue ?: number | undefined ) : number | undefined
 	{
-		const stringValue : string | undefined = this.getParamStringValue( name );
+		const stringValue : string | null | undefined = this.getParamStringValue( name );
 		if ( _.isString( stringValue ) && ! _.isEmpty( stringValue ) )
 		{
 			const result = parseInt( stringValue );
@@ -37,10 +37,10 @@ export class ProcessUtil
 
 	/**
 	 *	@param name		{string}
-	 *	@param [defaultValue]	{string}
-	 *	@returns {string | undefined}
+	 *	@param [defaultValue]	{string | null | undefined}
+	 *	@returns {string | null | undefined}
 	 */
-	static getParamStringValue( name : string, defaultValue ?: string ) : string | undefined
+	static getParamStringValue( name : string, defaultValue ?: string | null | undefined ) : string | null | undefined
 	{
 		if ( ! _.isString( name ) || _.isEmpty( name ) )
 		{
