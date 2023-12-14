@@ -1,7 +1,6 @@
 import { expect } from "@jest/globals";
-import { HttpUtil, HttpUtilOptions, HttpUtilResponse } from "../../src/utils/HttpUtil";
+import { HttpUtil, HttpUtilMethods, HttpUtilOptions, HttpUtilResponse } from "../../src/utils/HttpUtil";
 import _ from "lodash";
-import { AxiosBasicCredentials } from "axios";
 
 /**
  *	unit test
@@ -17,6 +16,20 @@ describe( "HttpUtil Test", () =>
 
 	describe( "HttpPost", () =>
 	{
+		it( "should test HttpUtil.isValidMethod", () =>
+		{
+			const allMethods = Object.values( HttpUtilMethods );
+			expect( Array.isArray( allMethods ) ).toBeTruthy();
+			expect( allMethods.length ).toBeGreaterThan( 0 );
+			for ( const method of allMethods )
+			{
+				expect( HttpUtil.isValidMethod( method.toLowerCase() ) ).toBeTruthy();
+				expect( HttpUtil.isValidMethod( method.toUpperCase() ) ).toBeTruthy();
+			}
+
+			expect( HttpUtil.isValidMethod( "A" ) ).toBeFalsy();
+		});
+
 		it( "should send HTTP Get request", async () =>
 		{
 			const httpOptions : HttpUtilOptions = {

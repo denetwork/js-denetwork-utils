@@ -11,11 +11,13 @@ export enum HttpUtilMethods
 	POST = "POST",
 	PUT = "PUT",
 	DELETE = "DELETE",
-	CONNECT = "CONNECT",
 	OPTIONS = "OPTIONS",
-	TRACE = "TRACE",
-	PATCH = "PATCH"
+	PATCH = "PATCH",
+	PURGE = "PURGE",
+	LINK = "LINK",
+	UNLINK = "UNLINK",
 }
+
 export type HttpUtilMilliseconds = number;
 
 export const HttpUtilDefaultTimeout : HttpUtilMilliseconds	= 5 * 60 * 1000;	//	5 minutes
@@ -52,11 +54,15 @@ export interface HttpUtilResponse
  */
 export class HttpUtil
 {
-	public static isValidMethods( value: any ) : boolean
+	public static isValidMethod( value: any ) : boolean
 	{
-		return _.isString( value ) &&
-			! _.isEmpty( value ) &&
-			Object.values( HttpUtilMethods ).includes( value as HttpUtilMethods );
+		if ( _.isString( value ) &&
+			! _.isEmpty( value ) )
+		{
+			return Object.values( HttpUtilMethods ).includes( value.toUpperCase() as HttpUtilMethods );
+		}
+
+		return false;
 	}
 
 	public static isValidUrl( value : any ) : boolean
@@ -110,7 +116,7 @@ export class HttpUtil
 				{
 					return reject( `invalid options` );
 				}
-				if ( ! this.isValidMethods( options.method ) )
+				if ( ! this.isValidMethod( options.method ) )
 				{
 					return reject( `invalid options.method` );
 				}
