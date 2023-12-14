@@ -145,30 +145,24 @@ export class HttpUtil
 					axiosConfig.proxy = options.proxy;
 				}
 
-				try
+				//	send request
+				const axiosRes: AxiosResponse = await axios( axiosConfig );
+				if ( axiosRes )
 				{
-					//	send request
-					const axiosRes: AxiosResponse = await axios( axiosConfig );
-					if ( axiosRes )
-					{
-						const response : HttpUtilResponse = {
-							status : axiosRes.status,
-							statusText : axiosRes.statusText,
-							headers : axiosRes.headers,
-							data : axiosRes.data,
-						};
-						return resolve( response );
-					}
+					const response : HttpUtilResponse = {
+						status : axiosRes.status,
+						statusText : axiosRes.statusText,
+						headers : axiosRes.headers,
+						data : axiosRes.data,
+					};
+					return resolve( response );
+				}
 
-					resolve( null );
-				}
-				catch ( err )
-				{
-					reject( err );
-				}
+				resolve( null );
 			}
 			catch ( err )
 			{
+				reject( err );
 			}
 		});
 	}
