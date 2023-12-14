@@ -34,7 +34,7 @@ export interface HttpUtilOptions
 	url : string,				//	url
 	method ?: HttpUtilMethods | string;	//	method
 	timeout? : HttpUtilMilliseconds;	//	timeout in milliseconds
-	data? : object;				//	post data
+	data? : any;				//	post data
 	headers? : HttpUtilHeaderObject;	//	http headers
 	proxy?: HttpUtilProxy;			//	proxy
 }
@@ -119,8 +119,9 @@ export class HttpUtil
 					return reject( `invalid options.url` );
 				}
 
-				//	config request options of Axios
-				let axiosConfig: AxiosRequestConfig = {
+				//	config request options of Axios.
+				//	data type of .data was set to any
+				let axiosConfig: AxiosRequestConfig<any> = {
 					method: options.method,
 					url: options.url,
 					timeout : this.isValidTimeout( options.timeout ) ? options.timeout : HttpUtilDefaultTimeout,
