@@ -1,6 +1,6 @@
 {
 	"name": "denetwork-utils",
-	"version": "1.0.56",
+	"version": "1.0.57",
 	"description": "utils for DeNetwork",
 	"main": "dist/index.js",
 	"browser": "dist/index.js",

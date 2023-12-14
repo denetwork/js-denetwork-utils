@@ -32,7 +32,7 @@ export interface HttpUtilHeaderObject
 export interface HttpUtilOptions
 {
 	url : string,				//	url
-	method ?: HttpUtilMethods;		//	method
+	method ?: HttpUtilMethods | string;	//	method
 	timeout? : HttpUtilMilliseconds;	//	timeout in milliseconds
 	data? : object;				//	post data
 	headers? : HttpUtilHeaderObject;	//	http headers
@@ -54,7 +54,9 @@ export class HttpUtil
 {
 	public static isValidMethods( value: any ) : boolean
 	{
-		return Object.values( HttpUtilMethods ).includes( value as HttpUtilMethods );
+		return _.isString( value ) &&
+			! _.isEmpty( value ) &&
+			Object.values( HttpUtilMethods ).includes( value as HttpUtilMethods );
 	}
 
 	public static isValidUrl( value : any ) : boolean
