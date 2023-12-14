@@ -15,3 +15,4 @@ export * from "./utils/ProcessUtil";
  * 	@description 	FetchUtil
  */
 export * from "./utils/FetchUtil";
+export * from "./utils/HttpUtil";
