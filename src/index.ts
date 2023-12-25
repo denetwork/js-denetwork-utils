@@ -8,6 +8,7 @@ export * from "./utils/TimerUtil";
 export * from "./utils/Uint8Util";
 export * from "./utils/MathUtil";
 export * from "./utils/ProcessUtil";
+export * from "./utils/WebUtil";
 
 
 /**
