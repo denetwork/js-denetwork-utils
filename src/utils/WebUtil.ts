@@ -3,6 +3,11 @@ import _ from "lodash";
 export interface WebResponseObject
 {
 	/**
+	 * 	@description status
+	 */
+	status : number;
+
+	/**
 	 * 	@description version
 	 */
 	version	: string;
@@ -34,12 +39,18 @@ export class WebUtil
 	/**
 	 *	get response object
 	 *
+	 *	@param  status		{number}
 	 *	@param	data		{any}
 	 *	@param	options		{any}
 	 *	@return	{ WebResponseObject }
 	 */
-	static getResponseObject( data : any, options ?: any ) : WebResponseObject
+	static getResponseObject( status : number, data : any, options ?: any ) : WebResponseObject
 	{
+		if ( ! _.isNumber( status ) )
+		{
+			status = 0;
+		}
+
 		let errorString = null;
 		if ( _.isObject( options ) )
 		{
@@ -61,6 +72,7 @@ export class WebUtil
 
 		const timeUsed : number = ( options && options.tu ) ? options.tu : 0;
 		return {
+			status  : status,		//	0 unset, 200, 404, 500 ...
 			version	: `1.0`,		//	version
 			ts	: new Date().getTime(),	//	timestamp UTC
 			tu	: timeUsed,		//	time used
